@@ -44,12 +44,6 @@ app.use(
   })
 );
 
-
-// ==============================
-// RATE LIMITER
-// ==============================
-
-// Disable in development
 if (
   process.env.NODE_ENV ===
   "production"
