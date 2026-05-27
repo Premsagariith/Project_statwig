@@ -53,28 +53,60 @@ const register = asyncHandler(async (req, res) => {
 });
 
 
-const login = asyncHandler(async (req, res) => {
+const login = asyncHandler(
+  async (req, res) => {
 
-  const { email, password } = req.body;
+    const {
+      email,
+      password,
+    } = req.body;
 
-  const data = await loginUser({
-    email,
-    password,
-  });
+    const data =
+      await loginUser({
+        email,
+        password,
+      });
+
+    // ==========================
+    // COOKIE OPTIONS
+    // ==========================
+    const cookieOptions = {
+
+      httpOnly: true,
+
+      secure:
+        process.env.NODE_ENV ===
+        "production",
+
+      sameSite:
+        process.env.NODE_ENV ===
+        "production"
+          ? "none"
+          : "lax",
+
+      maxAge:
+        7 * 24 * 60 * 60 * 1000,
+    };
 
 
-  res
-    .status(200)
-    .cookie("token", data.token, cookieOptions)
-    .json(
-      new ApiResponse(
-        200,
-        "Login successful",
-        data.user
+    res
+      .status(200)
+
+      .cookie(
+        "token",
+        data.token,
+        cookieOptions
       )
-    );
-});
 
+      .json(
+        new ApiResponse(
+          200,
+          "Login successful",
+          data.user
+        )
+      );
+  }
+);
 
 // Logout Controller
 const logout = asyncHandler(async (req, res) => {

@@ -5,44 +5,55 @@ import {
   useState,
 } from "react";
 
-import axios from "axios";
+import api from "../api/axios";
 
 
-const AuthContext = createContext();
+const AuthContext =
+  createContext();
 
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({
+  children,
+}) => {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] =
+    useState(null);
 
-  const [loading, setLoading] = useState(true);
-
-
-  // Fetch Current User
-  const fetchCurrentUser = async () => {
-
-    try {
-
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/me",
-        {
-          withCredentials: true,
-        }
-      );
-
-      setUser(response.data.data);
-
-    } catch (error) {
-
-      setUser(null);
-
-    } finally {
-
-      setLoading(false);
-    }
-  };
+  const [loading, setLoading] =
+    useState(true);
 
 
+  // ==========================
+  // FETCH CURRENT USER
+  // ==========================
+  const fetchCurrentUser =
+    async () => {
+
+      try {
+
+        const response =
+          await api.get(
+            "/auth/me"
+          );
+
+        setUser(
+          response.data.data
+        );
+
+      } catch (error) {
+
+        setUser(null);
+
+      } finally {
+
+        setLoading(false);
+      }
+    };
+
+
+  // ==========================
+  // INITIAL LOAD
+  // ==========================
   useEffect(() => {
 
     fetchCurrentUser();
@@ -50,17 +61,15 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
 
-  // Logout
+  // ==========================
+  // LOGOUT
+  // ==========================
   const logout = async () => {
 
     try {
 
-      await axios.post(
-        "http://localhost:5000/api/auth/logout",
-        {},
-        {
-          withCredentials: true,
-        }
+      await api.post(
+        "/auth/logout"
       );
 
       setUser(null);
@@ -76,9 +85,13 @@ export const AuthProvider = ({ children }) => {
 
     <AuthContext.Provider
       value={{
+
         user,
+
         setUser,
+
         loading,
+
         logout,
       }}
     >
@@ -90,7 +103,12 @@ export const AuthProvider = ({ children }) => {
 };
 
 
+// ==========================
+// CUSTOM HOOK
+// ==========================
 export const useAuth = () => {
 
-  return useContext(AuthContext);
+  return useContext(
+    AuthContext
+  );
 };
