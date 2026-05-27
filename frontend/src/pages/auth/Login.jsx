@@ -88,122 +88,211 @@ const Login = () => {
   };
 
   return (
+  <div className="relative min-h-screen overflow-hidden bg-[#0f172a] flex items-center justify-center px-4">
 
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-purple-100 px-4">
+    {/* Background Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900" />
 
-      {/* Background Blur Effects */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-purple-300 rounded-full blur-3xl opacity-20"></div>
+    {/* Glow Effects */}
+    <div className="absolute top-[-120px] left-[-80px] w-[350px] h-[350px] bg-indigo-500 opacity-20 blur-[120px] rounded-full"></div>
 
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-300 rounded-full blur-3xl opacity-20"></div>
+    <div className="absolute bottom-[-120px] right-[-80px] w-[350px] h-[350px] bg-purple-500 opacity-20 blur-[120px] rounded-full"></div>
 
-      {/* Main Container */}
-      <div className="w-full max-w-md z-10">
+    {/* Grid Overlay */}
+    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-        {/* App Title */}
-        <div className="text-center mb-8">
+    {/* Card */}
+    <div className="relative z-10 w-full max-w-md">
 
-          <h1 className="text-5xl font-extrabold text-gray-800">
+      {/* Brand */}
+      <div className="text-center mb-8">
 
-            Task
-            <span className="text-indigo-600">
-              Manager
-            </span>
+        <h1 className="text-5xl font-extrabold tracking-tight text-white">
 
-          </h1>
+          Task
+          <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            Manager
+          </span>
 
-          <p className="text-gray-500 mt-3 text-lg">
-            Organize your work efficiently
+        </h1>
+
+        <p className="mt-3 text-slate-400 text-lg">
+          Manage your tasks smarter and faster
+        </p>
+
+      </div>
+
+      {/* Login Container */}
+      <form
+        onSubmit={handleSubmit}
+        className="backdrop-blur-xl bg-white/10 border border-white/10 shadow-2xl rounded-3xl p-8 md:p-10"
+      >
+
+        <div className="mb-8 text-center">
+
+          <h2 className="text-3xl font-bold text-white">
+            Welcome Back
+          </h2>
+
+          <p className="text-slate-400 mt-2">
+            Login to continue
           </p>
 
         </div>
 
-        {/* Login Card */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-10 border border-gray-200"
-        >
+        {/* Email */}
+        <div className="mb-5">
 
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
+            Email Address
+          </label>
 
-            Welcome Back
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter mail"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="
+              w-full
+              px-4
+              py-4
+              rounded-2xl
+              bg-white/5
+              border
+              border-white/10
+              text-white
+              placeholder:text-slate-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-indigo-500
+              focus:border-indigo-500
+              transition-all
+              duration-300
+            "
+          />
 
-          </h2>
+        </div>
 
-          {/* Email */}
-          <div className="mb-5">
+        {/* Password */}
+        <div className="mb-6">
 
-            <label className="block text-gray-700 mb-2 font-medium">
-              Email
-            </label>
+          <div className="flex items-center justify-between mb-2">
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-            />
-
-          </div>
-
-          {/* Password */}
-          <div className="mb-6">
-
-            <label className="block text-gray-700 mb-2 font-medium">
+            <label className="text-sm font-medium text-slate-300">
               Password
             </label>
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-            />
-
           </div>
 
-          {/* Login Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:scale-[1.02] hover:shadow-2xl transition duration-300 disabled:opacity-70"
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="
+              w-full
+              px-4
+              py-4
+              rounded-2xl
+              bg-white/5
+              border
+              border-white/10
+              text-white
+              placeholder:text-slate-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-purple-500
+              focus:border-purple-500
+              transition-all
+              duration-300
+            "
+          />
+
+        </div>
+
+        {/* Remember */}
+        <div className="flex items-center justify-between mb-6">
+
+          <label className="flex items-center gap-2 text-sm text-slate-400 cursor-pointer">
+
+            <input
+              type="checkbox"
+              className="accent-indigo-500"
+            />
+
+            Remember me
+
+          </label>
+
+        </div>
+
+        {/* Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="
+            w-full
+            py-4
+            rounded-2xl
+            font-semibold
+            text-lg
+            text-white
+            bg-gradient-to-r
+            from-indigo-500
+            to-purple-600
+            hover:scale-[1.02]
+            hover:shadow-[0_0_30px_rgba(99,102,241,0.45)]
+            active:scale-[0.99]
+            transition-all
+            duration-300
+            disabled:opacity-60
+            disabled:cursor-not-allowed
+          "
+        >
+
+          {loading ? "Logging in..." : "Login"}
+
+        </button>
+
+        {/* Divider */}
+        <div className="flex items-center gap-4 my-6">
+
+          <div className="flex-1 h-px bg-white/10"></div>
+
+          <span className="text-slate-500 text-sm">
+            OR
+          </span>
+
+          <div className="flex-1 h-px bg-white/10"></div>
+
+        </div>
+
+       
+
+        {/* Register */}
+        <p className="text-center text-slate-400 mt-8">
+
+          Don&apos;t have an account?
+
+          <Link
+            to="/register"
+            className="ml-2 text-indigo-400 hover:text-indigo-300 font-semibold transition"
           >
+            Create Account
+          </Link>
 
-            {
-              loading
-                ? "Logging in..."
-                : "Login"
-            }
+        </p>
 
-          </button>
-
-          {/* Register Redirect */}
-          <p className="text-center mt-6 text-gray-600">
-
-            Don&apos;t have an account?
-
-            <Link
-              to="/register"
-              className="text-indigo-600 font-semibold hover:underline ml-1"
-            >
-
-              Register
-
-            </Link>
-
-          </p>
-
-        </form>
-
-      </div>
+      </form>
 
     </div>
-  );
+
+  </div>
+);
 };
 
 export default Login;
