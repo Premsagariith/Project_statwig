@@ -26,6 +26,12 @@ const app = express();
 
 
 // ==============================
+// TRUST PROXY (IMPORTANT FOR RAILWAY)
+// ==============================
+app.set("trust proxy", 1);
+
+
+// ==============================
 // SECURITY
 // ==============================
 app.use(helmet());
@@ -38,12 +44,17 @@ app.use(
 
   cors({
 
-    origin: process.env.CLIENT_URL,
+    origin:
+      process.env.CLIENT_URL,
 
     credentials: true,
   })
 );
 
+
+// ==============================
+// RATE LIMITER
+// ==============================
 if (
   process.env.NODE_ENV ===
   "production"
@@ -133,6 +144,9 @@ app.get("/", (req, res) => {
 });
 
 
+// ==============================
+// ERROR HANDLER
+// ==============================
 app.use(errorHandler);
 
 
